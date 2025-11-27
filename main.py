@@ -1,11 +1,10 @@
-#### Fonctions secondaires
-
-
+"""Syracuse"""
 # imports
 from plotly.graph_objects import Scatter, Figure
 
 ### NE PAS MODIFIER ###
 def syr_plot(lsyr):
+    """Syracuse"""
     title = "Syracuse" + " (n = " + str(lsyr[0]) + " )"
     fig = Figure({  'layout':   { 'title': {'text': title},
                                 'xaxis': {'title': {'text':"x"}},
@@ -32,8 +31,15 @@ def syracuse_l(n):
         list: la suite de Syracuse de source n
     """
 
-    # votre code ici 
-    l = [ ]
+    l = [n]
+
+    while n != 1:# tant que la suite n'est pas terminée :
+        if n%2 == 0:
+            n = n//2
+        else:
+            n = n*3+1
+        l.append(n)# ajout d'élément de liste l
+
     return l
 
 def temps_de_vol(l):
@@ -45,13 +51,11 @@ def temps_de_vol(l):
     Returns:
         int: le temps de vol
     """
-    
-    # votre code ici
-
-    n = 0
+    n=0
+    n = len(l)-1
     return n
 
-def temps_de_vol_en_altitude(l):
+def temps_de_vol_en_altitude(l): # plus petit indice k tel que Uk+1 < U0
     """Retourne le temps de vol en altitude d'une suite de Syracuse
 
     Args:
@@ -61,11 +65,26 @@ def temps_de_vol_en_altitude(l):
         int: le temps de vol en altitude
     """
 
-    # votre code ici
+    tva = 0 # temps de vol en altitude
+    trouve = False
 
-    n = 0
-    return n
+    # for i in l[1:]:
+    #     if trouve:
+    #         break
+    #     if i >l[0]:
+    #         tva += 1
+    #     else:
+    #         trouve = True
 
+    for i in range(1, len(l)):
+        if trouve:
+            break
+        if l[i] >l[0]:
+            tva += 1
+        else:
+            trouve = True
+
+    return tva
 
 def altitude_maximale(l):
     """retourne l'altitude maximale d'une suite de Syracuse
@@ -76,17 +95,21 @@ def altitude_maximale(l):
     Returns:
         int: l'altitude maximale
     """
-    
-    # votre code ici
-    
-    n = 0
-    return n
 
+    am = 0 #altitude maximale
+    am = max(l)
+
+    return am
 
 #### Fonction principale
 
-
 def main():
+    """
+    Returns:
+        int: l'altitude maximale
+        int: temps de vol en altitude
+        int: temps de vol
+    """
 
     # vos appels à la fonction secondaire ici
     lsyr = syracuse_l(15)
@@ -94,7 +117,6 @@ def main():
     print(temps_de_vol(lsyr))
     print(temps_de_vol_en_altitude(lsyr))
     print(altitude_maximale(lsyr))
-
 
 if __name__ == "__main__":
     main()
